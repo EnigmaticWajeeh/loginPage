@@ -21,11 +21,13 @@ import com.mongodb.MongoClient;
 
 
 
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
@@ -56,11 +58,19 @@ public class entry extends Application{
 		Label passLbl = new Label("Password : ");
 		TextField userTF = new TextField("Enter Username");
 		Label userLbl = new Label("Username : ");
-		TextField sizeLimitTF = new TextField("Enter The Size Max :");
+		
+		Slider sizeLimitSlider=new Slider();
+		
+		//TextField sizeLimitTF = new TextField("Enter The Size Max :");
 		Label sizeLimitLbl = new Label("Size (in %) :");
+		
 		Button accessBTN=new Button("Access File System");
 		Button addUserBTN=new Button("Add User");
 		
+		myGrid.setVgap(15);
+		myGrid.setHgap(15);
+
+		//float sizeLimitValue=0.0f;
 		
 		myGrid.setConstraints(userLbl,1,1);
 		myGrid.getChildren().add(userLbl);
@@ -72,8 +82,8 @@ public class entry extends Application{
 		myGrid.getChildren().add(passTF);
 		myGrid.setConstraints(sizeLimitLbl,1,3);
 		myGrid.getChildren().add(sizeLimitLbl);
-		myGrid.setConstraints(sizeLimitTF,2,3);
-		myGrid.getChildren().add(sizeLimitTF);
+		myGrid.setConstraints(sizeLimitSlider,2,3);
+		myGrid.getChildren().add(sizeLimitSlider);
 		myGrid.setConstraints(accessBTN,2,4);
 		myGrid.getChildren().add(accessBTN);
 		myGrid.setConstraints(addUserBTN,3,4);
@@ -88,8 +98,9 @@ public class entry extends Application{
 		passTF.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
 			passTF.setText("");
 		});
-		sizeLimitTF.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
-			sizeLimitTF.setText("");
+		sizeLimitSlider.addEventHandler(MouseEvent.MOUSE_RELEASED, (MouseEvent e)->{
+			float sizeLimitValue=(float)sizeLimitSlider.getValue();
+			System.out.println(sizeLimitValue);
 		});
 		
 		
@@ -98,8 +109,7 @@ public class entry extends Application{
 		
 			String passwordEntered=passTF.getText().trim();
 			String userEntered=userTF.getText().trim();
-			float sizeLimitValue=Integer.parseInt(sizeLimitTF.getText());
-			
+			float sizeLimitValue=(float)sizeLimitSlider.getValue();
 			
 			System.out.println(passwordEntered);
 			System.out.println(userEntered);
@@ -176,11 +186,7 @@ public class entry extends Application{
 				}
 			}
 			
-			
-			
-		});
-		
-		
+		});		
 		
 		
 		//Setting Scene
